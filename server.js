@@ -5,6 +5,7 @@ require('dotenv').config();
 const connectDB = require('./config/connect')
 const authRouter  = require('./routes/auth')
 const followersRouter =  require('./routes/follower')
+const authenticateUser = require('./middlewares/authentication');
 // error handler
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
@@ -23,7 +24,7 @@ app.use(logger('dev'))
 
 // Routing Declaration
  app.use('/api/v1', authRouter)
- app.use('/api/v1', followersRouter)
+ app.use('/api/v1',authenticateUser, followersRouter)
 
 
 //Error Handler Middleware

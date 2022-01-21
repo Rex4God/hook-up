@@ -71,7 +71,7 @@ userName:{
     unique: true,
 },
 wallet:{
-    type: Int32Array,
+    type: Number,
 },
 deviceOS:{
     type: String,
@@ -87,12 +87,12 @@ loginType:{
 
 })
 
- UserSchema.pre('save', async function () {
+ userSchema.pre('save', async function () {
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
   })
   
-  UserSchema.methods.createJWT = function () {
+  userSchema.methods.createJWT = function () {
     return jwt.sign(
       { userId: this._id, fullname: this.fullname, userName:  this.userName, phoneNumber: this.phoneNumber },
       process.env.JWT_SECRET,
@@ -102,7 +102,7 @@ loginType:{
     )
   }
   
-UserSchema.methods.comparePassword = async function (canditatePassword) {
+userSchema.methods.comparePassword = async function (canditatePassword) {
 const isMatch = await bcrypt.compare(canditatePassword, this.password)
 return isMatch
   }
