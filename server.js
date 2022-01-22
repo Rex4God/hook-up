@@ -39,17 +39,23 @@ app.use(errorHandlerMiddleware);
 
 //Server Connection Configuration
 
-const port = process.env.PORT || 5000
-const start =async() =>{
+    const port = process.env.PORT || 5000
+    const start =async() =>{
     try{
     await connectDB(process.env.MONGO_URI)
+    const server =app.listen(port,console.log(`Server is listening at ${port}.....`))
+    process.on("unhandledRejection", (err,promise)=>{
+     console.log(`Logged Error ${err}`);
+     server.close(()=>process.exit(1))
+     });
     console.log('CONNECTED TO THE DATABASE @LOCALHOST 27017')
-    app.listen(port,console.log(`Server is listening at ${port}.....`))
-    }catch(error){
+}catch(error){
     console.log(error)
-    }
 }
+
+} 
 start()
+
 
 
 

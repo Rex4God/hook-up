@@ -1,36 +1,31 @@
 const User = require('../models/User')
 const { StatusCodes } = require('http-status-codes')
-const { BadRequestError, UnauthenticatedError } = require('../errors')
 
-const login = async (req, res) => {
-    const { emailAddress,password } = req.body
+ const login = async (req, res) => {
+   const { emailAddress,password } = req.body
   
-    if (!emailAddress &&!password) {
-      throw new BadRequestError('Invalid Credential')
+    if (!emailAddress || !password) {
+     res.status(StatusCodes.BAD_REQUEST).json({ message: "Email or password does not match!" });
     }
     const user = await User.findOne({emailAddress})
-    if (!user) {
-      throw new UnauthenticatedError('Invalid Credentials')
-    }
+     if (!user) {
+          
+    res.status(StatusCodes.BAD_REQUEST).json({ message: "Email or password does not match!" });
+         }
     const isPasswordCorrect = await user.comparePassword(password)
     if (!isPasswordCorrect) {
-      throw new UnauthenticatedError('Invalid Credentials')
+    res.status(StatusCodes.BAD_REQUEST).json({ message: "Email or password does not match!" });
     }
     // compare password
-    const token = user.createJWT()
+   const token = user.createJWT()
     res.status(StatusCodes.OK).json({ user:{ 
         fullname: user.fullname,
         phoneNumber: user.phoneNumber,
         emailAddress: user.emailAddress,
         gender: user.gender,
         status: user.status
-         },token })
-  }
-
-
-
-
-
+        },token })
+ }
 
 
   module.exports ={
