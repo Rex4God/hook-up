@@ -94,10 +94,10 @@ loginType:{
   
   userSchema.methods.createJWT = function () {
     return jwt.sign(
-      { userId: this._id, fullname: this.fullname, userName:  this.userName, phoneNumber: this.phoneNumber },
+      { _id: this.userID, fullname: this.fullname},
       process.env.JWT_SECRET,
       {
-        expiresIn: process.env.JWT_LIFETIME,
+      expiresIn: process.env.LIFE_TIME,
       }
     )
   }

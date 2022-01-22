@@ -16,7 +16,7 @@ const followerSchema = new mongoose.Schema({
             unique: true,
          },
          followRound:{
-             type: Int32Array,
+             type: Number,
          },
          receivedID:{
              type: String,
