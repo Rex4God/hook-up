@@ -3,7 +3,7 @@ const app = express()
 const logger = require('morgan')
 require('dotenv').config();
 const connectDB = require('./config/connect')
-const authRouter  = require('./routes/auth')
+const authRouter  = require('./routes/users')
 const followersRouter =  require('./routes/follower')
 const authenticateUser = require('./middlewares/authentication');
 // error handler

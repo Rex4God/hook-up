@@ -67,7 +67,7 @@ subscription:{
 },
 userName:{
     type: String,
-    required:[true, 'Please provide your username'],
+    required:[true,'Please provide your username'],
     unique: true,
 },
 wallet:{

@@ -1,9 +1,11 @@
 const  Followers = require('../models/Followers')
+const User = require('../models/User')
 
 
 const suggestUser = async(req, res)=>{
-
-res.send('follower route')
+User.findByIdAndUpdate(req.body.followID),{
+    
+}
 
 }
 
